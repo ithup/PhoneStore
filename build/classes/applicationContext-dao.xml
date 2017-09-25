@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
+	xmlns:p="http://www.springframework.org/schema/p"  
+	xmlns:context="http://www.springframework.org/schema/context"   
+	xmlns:tx="http://www.springframework.org/schema/tx"  
+	xmlns:aop="http://www.springframework.org/schema/aop"  
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    
+	http://www.springframework.org/schema/aop    
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd    
+	http://www.springframework.org/schema/tx    
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd    
+	http://www.springframework.org/schema/context    
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- 引入外部属性文件 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	<!-- 配置c3p0连接池: -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    	<property name="driverClass" value="${jdbc.driverClass}"/>
+    	<property name="jdbcUrl" value="${jdbc.url}"/>
+    	<property name="user" value="${jdbc.username}"/>
+    	<property name="password" value="${jdbc.password}"/>
+    </bean>
+	<!-- 编写bean，名称都是固定，代替hibernate.cfg.xml的配置文件 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+			<!-- 注入连接池 -->
+    	<property name="dataSource" ref="dataSource"/>
+    	 <!-- 配置其他的属性 -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        <!-- 配置映射 -->
+        <property name="mappingResources">
+            <list>
+                <value>cn/ithup/phone/pojo/Affiche.hbm.xml</value>
+                <value>cn/ithup/phone/pojo/BigType.hbm.xml</value>
+                <value>cn/ithup/phone/pojo/Link.hbm.xml</value>
+                <value>cn/ithup/phone/pojo/SmallType.hbm.xml</value>
+                <value>cn/ithup/phone/pojo/Goods.hbm.xml</value>
+                <value>cn/ithup/phone/pojo/Member.hbm.xml</value>
+                <value>cn/ithup/phone/pojo/Order.hbm.xml</value>
+                <value>cn/ithup/phone/pojo/Orderdetail.hbm.xml</value>
+                <value>cn/ithup/phone/pojo/Manager.hbm.xml</value>
+            </list>
+        </property>
+	</bean>
+	<!-- 以后：Dao都需要继承HibernateDaoSupport，注入sessionFactory -->
+	<bean id="managerDao" class="cn.ithup.phone.dao.impl.ManagerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 友情链接模块 -->
+	<bean id="linkDao" class="cn.ithup.phone.dao.impl.LinkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 公告模块 -->
+	<bean id="afficheDao" class="cn.ithup.phone.dao.impl.AfficheDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 配置大类别模块 -->
+	<bean id="bigTypeDao" class="cn.ithup.phone.dao.impl.BigTypeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 配置小类别模块 -->
+	<bean id="smallTypeDao" class="cn.ithup.phone.dao.impl.SmallTypeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 配置会员模块 -->
+	<bean id="memberDao" class="cn.ithup.phone.dao.impl.MemberDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 配置商品模块 -->
+	<bean id="goodsDao" class="cn.ithup.phone.dao.impl.GoodsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 配置订单模块 -->
+	<bean id="orderDao" class="cn.ithup.phone.dao.impl.OrderDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+</beans>

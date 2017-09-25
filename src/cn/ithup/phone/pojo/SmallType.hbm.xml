@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="cn.ithup.phone.pojo.SmallType" table="tb_smalltype">
+		<id name="stId" column="stId" length="11">
+			<generator class="native"/>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="stSmallName" column="stSmallName" length="50"/>
+		<property name="stCreateTime" column="stCreateTime" length="50"/>
+		<!-- 配置多对一关联 
+				多个小类别对应一个大类别
+		-->
+		<many-to-one name="bigType" class="cn.ithup.phone.pojo.BigType" column="bigId" />
+		<!-- 配置一对多关联 
+				一个小类别可以对应对个商品
+				inverse="true":放弃外键维护
+		-->
+		<set name="goods" inverse="true">
+			<key column="smallId"/>
+			<one-to-many class="cn.ithup.phone.pojo.Goods"/>
+		</set>
+	</class>
+</hibernate-mapping>    

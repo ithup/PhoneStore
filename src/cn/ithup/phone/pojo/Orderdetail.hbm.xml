@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="cn.ithup.phone.pojo.Orderdetail" table="tb_orderdetail">
+		<id name="odId" column="odId" length="100">
+			<generator class="uuid"/>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="price" column="price" />
+		<property name="nubmer" column="nubmer" not-null="true"/>
+		<!-- 一对多关联：
+				商品对应订单明细		
+		 -->
+		 <many-to-one name="goodsId" class="cn.ithup.phone.pojo.Goods" column="goodId" cascade="save-update"></many-to-one>
+		 <!-- 一对多关联：
+				订单对应订单明细		
+		 -->
+		 <many-to-one name="orderNumber" class="cn.ithup.phone.pojo.Order" column="orderId" cascade="save-update"></many-to-one>
+	</class>
+</hibernate-mapping>    

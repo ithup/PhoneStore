@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="cn.ithup.phone.pojo.BigType" table="tb_bigtype">
+		<id name="btId" column="btId" length="11">
+			<generator class="native"/>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="btBigName" column="btBigName" length="50"/>
+		<property name="btCreateTime" column="btCreateTime" length="50"/>
+		<!-- 配置一对多关联 
+			inverse="true":放弃外键维护
+		-->
+		<set name="smallType" inverse="true">
+			<key column="bigId"/>
+			<one-to-many class="cn.ithup.phone.pojo.SmallType"/>
+		</set>
+	</class>
+</hibernate-mapping>    

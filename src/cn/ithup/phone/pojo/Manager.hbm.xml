@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="cn.ithup.phone.pojo.Manager" table="tb_manager">
+		<id name="managerId" column="managerId" length="11">
+			<generator class="native"/>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="account" column="account" length="50"/>
+		<property name="password" column="password" length="50"/>
+		<property name="name" column="name" length="10"/>
+		<property name="sign" column="sign" length="11"/>
+	</class>
+</hibernate-mapping>    

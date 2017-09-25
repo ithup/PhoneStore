@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="cn.ithup.phone.pojo.Member" table="tb_member">
+		<id name="memberName" column="memberName" length="50">
+			<generator class="uuid"/>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="password" column="password" length="50"/>
+		<property name="reallyName" column="reallyName" length="10"/>
+		<property name="age" column="age" length="11"/>
+		<property name="profession" column="profession" length="50"/>
+		<property name="email" column="email" length="50"/>
+		<property name="question" column="question" length="50"/>
+		<property name="result" column="result" length="50"/>
+		<property name="address" column="address" length="50"/>
+		<!-- 配置一对多关联 
+				一个会员对应多个订单
+		-->
+		<set name="orders" inverse="true">
+			<key column="memberId"/>
+			<one-to-many class="cn.ithup.phone.pojo.Order"/>
+		</set>
+	</class>
+</hibernate-mapping>    

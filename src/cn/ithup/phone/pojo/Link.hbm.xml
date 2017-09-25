@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="cn.ithup.phone.pojo.Link" table="tb_link">
+		<id name="linkId" column="linkId" length="11">
+			<generator class="native"/>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="linkName" column="linkName" length="50"/>
+		<property name="linkAddress" column="linkAddress" length="50"/>
+	</class>
+</hibernate-mapping>    

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
+	xmlns:p="http://www.springframework.org/schema/p"  
+	xmlns:context="http://www.springframework.org/schema/context"   
+	xmlns:tx="http://www.springframework.org/schema/tx"  
+	xmlns:aop="http://www.springframework.org/schema/aop"  
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd    
+	http://www.springframework.org/schema/aop    
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd    
+	http://www.springframework.org/schema/tx    
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd    
+	http://www.springframework.org/schema/context    
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- 配置管理员模块 -->
+	<!-- 强调：以后配置Action，必须是多例的 -->
+	<bean id="managerAction" class="cn.ithup.phone.web.action.ManagerAction" scope="prototype">
+		<property name="managerService" ref="managerService"/>
+	</bean>
+	
+	<!-- 配置友情链接模块 -->
+	<bean id="linkAction" class="cn.ithup.phone.web.action.LinkAction" scope="prototype">
+		<property name="linkService" ref="linkService"/>
+	</bean>
+	
+	<!-- 配置公告模块 -->
+	<bean id="afficheAction" class="cn.ithup.phone.web.action.AfficheAction" scope="prototype">
+		<property name="afficheService" ref="afficheService"/>
+	</bean>
+	
+	<!-- 配置大类别模块 -->
+	<bean id="bigTypeAction" class="cn.ithup.phone.web.action.BigTypeAction" scope="prototype">
+		<property name="bigTypeService" ref="bigTypeService"/>
+	</bean>
+	
+	<!-- 配置大类别模块 -->
+	<bean id="smallTypeAction" class="cn.ithup.phone.web.action.SmallTypeAction" scope="prototype">
+		<property name="smallTypeService" ref="smallTypeService"/>
+	</bean>
+	
+	<!-- 配置会员模块 -->
+	<bean id="memberAction" class="cn.ithup.phone.web.action.MemberAction" scope="prototype">
+		<property name="memberService" ref="memberService"/>
+	</bean>
+	
+	<!-- 配置商品模块 -->
+	<bean id="goodsAction" class="cn.ithup.phone.web.action.GoodsAction" scope="prototype">
+		<property name="goodsService" ref="goodsService"/>
+	</bean>
+	<!-- 配置购物车模块 -->
+	<bean id="cartAction" class="cn.ithup.phone.web.action.CartAction" scope="prototype">
+		<property name="goodsService" ref="goodsService"/>
+	</bean>
+	<!-- 配置订单模块 -->
+	<bean id="orderAction" class="cn.ithup.phone.web.action.OrderAction" scope="prototype">
+		<property name="orderService" ref="orderService"/>
+	</bean>
+	
+</beans>

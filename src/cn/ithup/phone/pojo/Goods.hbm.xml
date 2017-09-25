@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="cn.ithup.phone.pojo.Goods" table="tb_goods">
+		<id name="goodsId" column="goodsId" length="11">
+			<generator class="native"/>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="goodsName" column="goodsName" length="50"/>
+		<property name="goodsFrom" column="goodsFrom" length="50"/>
+		<property name="introduce" column="introduce" length="200"/>
+		<property name="createTime" column="createTime"/>
+		<property name="nowPrice" column="nowPrice"/>
+		<property name="freePrice" column="freePrice"/>
+		<property name="number" column="number"/>
+		<property name="pirture" column="pirture" length="150"/>
+		<property name="mark" column="mark"/>
+		<property name="sellCount" column="sellCount"/>
+		<!-- 配置多对一关联 -->
+		<many-to-one name="smallType" class="cn.ithup.phone.pojo.SmallType" column="smallId" cascade="save-update"/>
+		<!-- 一对多关联：
+				商品对应订单明细		
+		 -->
+		 <set name="orderdetails" inverse="true">
+		 	<key column="goodId"/>
+		 	<one-to-many class="cn.ithup.phone.pojo.Orderdetail"/>
+		 </set>
+	</class>
+</hibernate-mapping>    

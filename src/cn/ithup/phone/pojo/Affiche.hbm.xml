@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	
+	<class name="cn.ithup.phone.pojo.Affiche" table="tb_affiche">
+		<id name="afficheId" column="afficheId" length="11">
+			<generator class="native"/>
+		</id>
+		<!-- 普通属性映射 -->
+		<property name="afficheName" column="afficheName" length="50" not-null="true"/>
+		<property name="afficheContent" column="afficheContent" not-null="true"/>
+		<property name="afficheIssueTime" column="afficheIssueTime" not-null="true"/>
+	</class>
+</hibernate-mapping>    
