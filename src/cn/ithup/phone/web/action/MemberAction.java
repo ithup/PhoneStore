@@ -1,5 +1,7 @@
 package cn.ithup.phone.web.action;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 
@@ -17,6 +19,11 @@ import cn.ithup.phone.service.MemberService;
  *
  */
 public class MemberAction extends ActionSupport implements ModelDriven<Member>{
+
+	private InputStream inputStream;
+	public InputStream getInputStream() {
+		return inputStream;
+	}
 
 	//注入服务层：memberService
 	private MemberService memberService;
@@ -45,4 +52,19 @@ public class MemberAction extends ActionSupport implements ModelDriven<Member>{
 		return SUCCESS;
 	}
 	
+	/**
+	 * 校验用户名是否已注册
+	 * @return
+	 * @throws Exception 
+	 */
+	public String check() throws Exception{
+		String memberName = member.getMemberName();
+		Member checkMember = memberService.findMemberByPrimaryKey(memberName);
+		if(checkMember == null){
+			inputStream=new ByteArrayInputStream("1".getBytes("UTF-8"));
+		}else{
+			inputStream=new ByteArrayInputStream("2".getBytes("UTF-8"));
+		}
+		return "check";
+	}
 }

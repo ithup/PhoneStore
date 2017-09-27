@@ -4,10 +4,12 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
 import com.ithup.phone.utils.PaymentUtil;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -160,6 +162,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 	 */
 	public String pay() throws Exception{
 		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
 		//接受参数:已经被封装到order模型中
 		//通过订单主键获取order
 		Order backOrder = orderService.getById(order.getOrderNumber());
@@ -176,7 +179,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		orderService.updateOrder(order);
 
 		// 组织发送支付公司需要哪些数据
-		String pd_FrpId = request.getParameter("pd_FrpId");
+		String pd_FrpId = request.getParameter("pd_FrpId");//选择哪个银行
 		String p0_Cmd = "Buy";
 		String p1_MerId = ResourceBundle.getBundle("merchantInfo").getString("p1_MerId");
 		String p2_Order = order.getOrderNumber();
@@ -215,9 +218,8 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		sb.append("pr_NeedResponse=").append(pr_NeedResponse).append("&");// 应答机制
 		sb.append("hmac=").append(hmac);// 签名数据
 		
-		//respone.sendRedirect(sb.toString());//需要重定向单第三方地址
-		
-		return null;
+		ActionContext.getContext().put("ipAddress", sb.toString());
+		return "ipAddress";
 	}
 	/**
 	 * 支付成功之后的回调
@@ -264,7 +266,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 				// 修改订单状态 为已付款
 				// 回复支付公司
 				//response.getWriter().print("success");
-				return "";
+				return "orderSuccess";
 			}
 			
 			//修改订单状态
@@ -281,7 +283,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order>{
 		}
 		
 		
-		return "/jsp/msg.jsp";
+		return "msg";
 		
 	}
 	

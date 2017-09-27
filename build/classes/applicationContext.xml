@@ -19,5 +19,6 @@
 	<import resource="classpath:applicationContext-dao.xml"></import>
 	<import resource="classpath:applicationContext-service.xml"></import>
 	<import resource="classpath:applicationContext-tx.xml"></import>
+	<import resource="classpath:applicationContext-redis.xml"></import>
 	
 </beans>

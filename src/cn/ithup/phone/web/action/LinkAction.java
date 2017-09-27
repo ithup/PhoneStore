@@ -1,14 +1,15 @@
 package cn.ithup.phone.web.action;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts2.ServletActionContext;
 
+import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -16,6 +17,8 @@ import com.opensymphony.xwork2.ModelDriven;
 import cn.ithup.phone.pojo.Link;
 import cn.ithup.phone.pojo.PageBean;
 import cn.ithup.phone.service.LinkService;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 /**
  * 友情链接模块
@@ -24,16 +27,25 @@ import cn.ithup.phone.service.LinkService;
  *
  */
 public class LinkAction extends ActionSupport implements ModelDriven<Link> {
+	//注入jedisPool
+	private JedisPool jedisPool;//获取连接池
+	public void setJedisPool(JedisPool jedisPool) {
+		this.jedisPool = jedisPool;
+	}
+
+	private InputStream inputStream;
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+	
 	// 注入linkService
 	private LinkService linkService;
-
 	public void setLinkService(LinkService linkService) {
 		this.linkService = linkService;
 	}
 
 	// 模型驱动封装数据
 	private Link link = new Link();
-
 	public Link getModel() {
 		return link;
 	}
@@ -97,4 +109,26 @@ public class LinkAction extends ActionSupport implements ModelDriven<Link> {
 		return SUCCESS;
 	}
 
+	/**
+	 * ajax异步请求友情链接
+	 * @return
+	 * @throws Exception 
+	 */
+	public String fgShow() throws Exception{
+		//先从缓存中查询link 如果有直接使用 没有在从数据库中查询 存到缓存中
+		//1、获得jedis对象 连接redis数据库
+		Jedis jedis = jedisPool.getResource();
+		String linkListJson = jedis.get("linkListJson");
+		//2、判断linkListJson是否为空
+		if(linkListJson == null){
+			System.out.println("缓存没有数据 查询数据库");
+			//准备友情链接数据
+			List<Link> linkList = linkService.findAllLink();
+			Gson gson = new Gson();
+			linkListJson = gson.toJson(linkList);
+			jedis.set("linkListJson", linkListJson);
+		}
+		inputStream=new ByteArrayInputStream(linkListJson.getBytes("UTF-8"));
+		return "linkList";
+	}
 }

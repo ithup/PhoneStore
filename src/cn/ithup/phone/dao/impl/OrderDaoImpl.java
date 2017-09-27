@@ -28,8 +28,14 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
 	 * 修改订单信息
 	 */
 	public void updateOrder(Order order) throws Exception {
-		//Order order2 = this.getHibernateTemplate().get(Order.class, order.getOrderNumber());
-		this.getHibernateTemplate().update(order);
+		Order order2 = this.getHibernateTemplate().get(Order.class, order.getOrderNumber());
+		order2.setContacterName(order.getContacterName());
+		order2.setAddress(order.getAddress());
+		order2.setTel(order.getTel());
+		order2.setSetMoney(order.getSetMoney());
+		order2.setPost(order.getPost());
+		order2.setBz(order.getBz());
+		this.getHibernateTemplate().update(order2);
 	}
 
 	/**

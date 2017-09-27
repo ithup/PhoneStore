@@ -8,16 +8,23 @@
 	<package name="phone" extends="struts-default" namespace="/">
 		<!-- 是由Struts2框架自己来管理Action -->
 		<!-- 配置管理员的Action，如果Action由Spring框架来管理，class标签上只需要编写ID值就OK -->
-	    <!-- 管理员模块 -->
+		<!-- 管理员模块 -->
 		<action name="manager_*" class="managerAction" method="{1}">
 			<result name="success">/bg-orderContent.jsp</result>
 			<result name="login">/bg-land.jsp</result>
 		</action>
-		 <!-- 友情链接模块 -->
+		<!-- 友情链接模块 -->
 		<action name="link_*" class="linkAction" method="{1}">
 			<result name="success">/bg-linkSelect.jsp</result>
-			<result name="handleSuccess" type="redirectAction">/link_showPage?currPage=1</result>
-			<result name="handleSuccess" type="redirectAction">/link_showPage?currPage=1</result>
+			<result name="handleSuccess" type="redirectAction">/link_showPage?currPage=1
+			</result>
+			<result name="handleSuccess" type="redirectAction">/link_showPage?currPage=1
+			</result>
+			<!-- ajax异步请求友情链接 -->
+			<result type="stream" name="linkList">
+				<param name="contentType">text/html</param>
+				<param name="inputStream">inputStream</param>
+			</result>
 		</action>
 		<!-- 公告模块 -->
 		<action name="affiche_*" class="afficheAction" method="{1}">
@@ -30,12 +37,14 @@
 		<action name="bigType_*" class="bigTypeAction" method="{1}">
 			<result name="success">/bg-bigTypeSelect.jsp</result>
 			<result name="bigTypeList">/bg-smallTypeInsert.jsp</result>
-			<result name="handleSuccess" type="redirectAction">/bigType_showPage?currPage=1</result>
+			<result name="handleSuccess" type="redirectAction">/bigType_showPage?currPage=1
+			</result>
 		</action>
 		<!-- 小类别模块 -->
 		<action name="smallType_*" class="smallTypeAction" method="{1}">
 			<result name="success">/bg-smallTypeSelect.jsp</result>
-			<result name="handleSuccess" type="redirectAction">/smallType_showPage?currPage=1</result>
+			<result name="handleSuccess" type="redirectAction">/smallType_showPage?currPage=1
+			</result>
 		</action>
 		<!-- 商品模块 -->
 		<action name="goods_*" class="goodsAction" method="{1}">
@@ -50,6 +59,11 @@
 		<action name="member_*" class="memberAction" method="{1}">
 			<result name="error">/</result>
 			<result name="success">/</result>
+			<!-- 检验用户名是否存在 -->
+			<result type="stream" name="check">
+				<param name="contentType">text/html</param>
+				<param name="inputStream">inputStream</param>
+			</result>
 		</action>
 		<!-- 订单模块 -->
 		<action name="order_*" class="orderAction" method="{1}">
@@ -57,6 +71,9 @@
 			<result name="orderInfo">/cart_checkOut.jsp</result>
 			<!-- 跳转到订单列表 -->
 			<result name="orderList">/cart_detail.jsp</result>
+			<result name="orderSuccess">/orderSuccess.jsp</result>
+			<result name="msg">/msg.jsp</result>
+			<result name="ipAddress" type="redirect">${ipAddress}</result>
 		</action>
 	</package>
 </struts>

@@ -30,8 +30,7 @@ public class MemberDaoImpl extends HibernateDaoSupport implements MemberDao {
 
 	@Override
 	public Member findMemberByPrimaryKey(String memberName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getHibernateTemplate().get(Member.class, memberName);
 	}
 
 	@Override

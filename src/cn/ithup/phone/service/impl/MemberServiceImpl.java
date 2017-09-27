@@ -2,6 +2,8 @@ package cn.ithup.phone.service.impl;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import cn.ithup.phone.dao.MemberDao;
 import cn.ithup.phone.pojo.Member;
 import cn.ithup.phone.service.MemberService;
@@ -11,6 +13,7 @@ import cn.ithup.phone.service.MemberService;
  * @author acer
  *
  */
+@Transactional
 public class MemberServiceImpl implements MemberService {
 
 	//注入持久层memberDao
@@ -19,22 +22,18 @@ public class MemberServiceImpl implements MemberService {
 		this.memberDao = memberDao;
 	}
 
-	@Override
 	public List<Member> findAllMember() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public boolean deleteMemberByPrimaryKey(String memberName) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public Member findMemberByPrimaryKey(String memberName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return memberDao.findMemberByPrimaryKey(memberName);
 	}
 
 	@Override

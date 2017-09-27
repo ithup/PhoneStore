@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <title>手机销售系统</title>
 </head>
 <script language="javascript">
@@ -127,17 +128,35 @@ function quit() {
             </table>
               <table width="186" align="center">
                 <tr>
-                  <td height="38">
-				  <MARQUEE direction="up" height="114" onmouseout="this.start()" 
-             onmouseover="this.stop()" scrollAmount="1" scrollDelay="1">	  
-		          
-					<img src="image/sign1.gif">&nbsp; <a href="https://ai.taobao.com" target="_blank">淘宝网</a><br><br>
-					<img src="image/sign1.gif">&nbsp; <a href="https://www.jd.com" target="_blank">京东商城</a><br><br>
-				
-            </marquee>				 </td>
+	                  <td height="38">
+					  <MARQUEE direction="up" height="114" onmouseout="this.start()" 
+	             onmouseover="this.stop()" scrollAmount="1" scrollDelay="1">	  
+			          <ul style="list-style-type: none" id="linkId">
+				          <!-- <li><img src="image/sign1.gif">&nbsp; <a href="https://ai.taobao.com" target="_blank">淘宝网</a><br></li>
+				          <li><img src="image/sign1.gif">&nbsp; <a href="https://www.jd.com" target="_blank">京东商城</a></li> -->
+					  </ul>
+	            </marquee>				 
+	            	  </td>
                 </tr>
               </table></td>
           </tr>
       </table>
 </body>
+<script type="text/javascript">
+	$(function(){
+		var content = "";
+		$.post(
+			"${pageContext.request.contextPath}/link_fgShow.action",
+			function(data){
+				for(var i=0;i<data.length;i++){
+					content+="<li><img src='image/sign1.gif'>&nbsp; <a href='"+data[i].linkAddress+"'>"+data[i].linkName+"</a></li>";
+				}
+				
+				//将拼接好的li放置到ul中
+				$("#linkId").html(content);
+			},
+			"json"
+		);
+	})
+</script>
 </html>

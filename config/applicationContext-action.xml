@@ -22,6 +22,7 @@
 	<!-- 配置友情链接模块 -->
 	<bean id="linkAction" class="cn.ithup.phone.web.action.LinkAction" scope="prototype">
 		<property name="linkService" ref="linkService"/>
+		<property name="jedisPool" ref="jedisPool"/>
 	</bean>
 	
 	<!-- 配置公告模块 -->

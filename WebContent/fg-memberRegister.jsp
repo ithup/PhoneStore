@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=gb2312" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@page import="java.sql.*,java.util.*"%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>ÊÖ»úÏúÊÛÏµÍ³</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>æ‰‹æœºé”€å”®ç³»ç»Ÿ</title>
 </head>
 <link href="css/css.css" rel="stylesheet" type="text/css"> 
 <script type="text/javascript" src="js/jquery-1.11.0.js" ></script>
@@ -15,25 +15,54 @@
 				rules:{
 					memberName:"required",
 					password:{
-						rangelength:[3,6],
+						rangelength:[6,18],
 						required:true
 					},
 					repassword:{
 						equalTo:"#password"
 					},
-					email:"email",
-					sex:"required"
+					email:{
+						required:true,
+						email:"email"
+					},
+					question:"required",
+					result:"required",
 				},
 				messages:{
-					memberName:"ÓÃ»§Ãû²»ÄÜÎª¿Õ",
+					memberName:"ç”¨æˆ·åä¸èƒ½ä¸ºç©º",
 					password:{
-						rangelength:"ÃÜÂë³¤¶ÈÔÚ{0}~{1}Ö®¼ä",
-						required:"ÃÜÂë²»ÄÜÎª¿Õ"
-					}
+						rangelength:"å¯†ç é•¿åº¦åœ¨{0}~{1}ä¹‹é—´",
+						required:"å¯†ç ä¸èƒ½ä¸ºç©º"
+					},
+					email:{
+						required:"é‚®ç®±ä¸èƒ½ä¸ºç©º",
+						email:"é‚®ç®±æ ¼å¼ä¸æ­£ç¡®"
+					},
+					question:"ä¸èƒ½ä¸ºç©º",
+					result:"ä¸èƒ½ä¸ºç©º",
 				}
 			});
+			$("#memberName").blur(function(){
+				var memberName = $(this).val();
+				//alert(memberName)
+				// ä½¿ç”¨jqueryçš„ajaxçš„æ“ä½œå¼‚æ­¥å‘é€è¯·æ±‚.
+				$.post("${pageContext.request.contextPath}/member_check.action",{"memberName":memberName},function(data){
+					if(data==1){
+						// ç”¨æˆ·åå¯ä»¥ä½¿ç”¨
+						$("#memberName_msg").html("<font color='green'>ç”¨æˆ·åå¯ä»¥ä½¿ç”¨</font>");
+					}else if(data==2){
+						// ç”¨æˆ·åå·²ç»å­˜åœ¨
+						$("#memberName_msg").html("<font color='red'>ç”¨æˆ·åå·²ç»è¢«ä½¿ç”¨</font>");
+					}
+				}); 
+			})
 		})
 	</script>
+	<style>
+		label{
+			color:red
+		}
+	</style>
 <body>
 <jsp:include page="fg-top.jsp" flush="true"/>
 <table width="766" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
@@ -41,66 +70,66 @@
     <td bgcolor="#F5F5F5" align="center">
 <img src="image/fg1.jpg" width="752" height="39">
 <form action="member_register.action" method="post" id="formid">
-<table width="270"  border="0" cellspacing="0" cellpadding="0">
+<table width="600"  border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td width="107" height="35">
-          <div align="right">»áÔ±Ãû³Æ£º</div></td>
+          <div align="right">ä¼šå‘˜åç§°ï¼š</div></td>
         <td width="163">
             <div align="left">
-             <input type="text"  name="memberName"/>
+             <input type="text"  name="memberName" id="memberName"/><span id="memberName_msg"></span>
           </div></td></tr>
       <tr>
         <td height="35">          
-          <div align="right">»áÔ±ÃÜÂë£º</div></td>
+          <div align="right">ä¼šå‘˜å¯†ç ï¼š</div></td>
         <td>
             <div align="left">
             <input type="password"  name="password" id="password"/>
           </div></td></tr>
       <tr>
         <td height="35">
-          <div align="right">ÃÜÂëÈ·ÈÏ£º</div></td>
+          <div align="right">å¯†ç ç¡®è®¤ï¼š</div></td>
         <td>
             <div align="left">
               <input type="password" name="repassword">
           </div></td></tr>
       <tr>
         <td height="35">
-          <div align="right">ÕæÊµĞÕÃû£º</div></td>
+          <div align="right">çœŸå®å§“åï¼š</div></td>
         <td>
             <div align="left">
             <input type="text"  name="reallyName"/>
           </div></td></tr>
       <tr>
         <td height="35">
-          <div align="right">ÄêÁä£º</div></td>
+          <div align="right">å¹´é¾„ï¼š</div></td>
         <td>
             <div align="left">
               <input type="text"  name="age"/>          
           </div></td></tr>
       <tr>
         <td height="35">
-          <div align="right">Ö°Òµ£º</div></td>
+          <div align="right">èŒä¸šï¼š</div></td>
         <td>
             <div align="left">
             <input type="text"  name="profession"/>
           </div></td></tr>
       <tr>
         <td height="35">
-          <div align="right">EmailµØÖ·£º</div></td>
+          <div align="right">Emailåœ°å€ï¼š</div></td>
         <td>
             <div align="left">
              <input type="text"  name="email"/>
           </div></td></tr>
       <tr>
         <td height="35">
-          <div align="right">ÕÒ»ØÃÜÂëÎÊÌâ£º</div></td>
+          <div align="right">æ‰¾å›å¯†ç é—®é¢˜ï¼š</div></td>
         <td>
             <div align="left">
                <input type="text"  name="question"/>
           </div></td></tr>
       <tr>
         <td height="35">
-          <div align="right">´ğ°¸£º</div></td>
+          <div align="right">ç­”æ¡ˆï¼š</div></td>
         <td>
             <div align="left">
                <input type="text"  name="result"/>
