@@ -50,4 +50,8 @@ public interface GoodsService {
 	public List<Goods> findFreeGoods()throws Exception;
 
 	public PageBean<Goods> showFreeGoodsByPage(int currPage, int pageSize) throws Exception;
+
+	public List<Goods> findNewGoods()throws Exception;
+
+	public List<Goods> findSalesRankGoods()throws Exception;
 }

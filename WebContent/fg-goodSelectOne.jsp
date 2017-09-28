@@ -29,7 +29,7 @@ td {
 <div align="center">
   <p class="style1">查看商品清单</p>
 </div>
-<table width="500"  border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bordercolorlight="#FFFFFF" bordercolordark="#819BBC">
+<table width="800"  border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bordercolorlight="#FFFFFF" bordercolordark="#819BBC">
   <tr>
     <td width="36%" rowspan="4" height="120"><div align="center">
         <input  type="image" src="goodsPicture/huawei/1492255388853.jpg" width="110" height="100">

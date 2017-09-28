@@ -67,4 +67,14 @@ public class GoodsServiceImpl implements GoodsService {
 		return new PageBean<Goods>(list, currPage, pageSize, totalCount);//封装数据返回PageBean
 	}
 
+	//查询最新商品
+	public List<Goods> findNewGoods() throws Exception {
+		return goodsDao.selectNewGoods();
+	}
+
+	//查询商品销售排行
+	public List<Goods> findSalesRankGoods() throws Exception {
+		return goodsDao.selectSalesRankGoods();
+	}
+
 }

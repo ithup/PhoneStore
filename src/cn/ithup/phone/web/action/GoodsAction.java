@@ -12,6 +12,8 @@ import com.opensymphony.xwork2.ModelDriven;
 import cn.ithup.phone.pojo.Goods;
 import cn.ithup.phone.pojo.PageBean;
 import cn.ithup.phone.service.GoodsService;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 /**
  * 模块
@@ -20,6 +22,13 @@ import cn.ithup.phone.service.GoodsService;
  *
  */
 public class GoodsAction extends ActionSupport implements ModelDriven<Goods> {
+
+	// 注入jedisPool
+	private JedisPool jedisPool;// 获取连接池
+
+	public void setJedisPool(JedisPool jedisPool) {
+		this.jedisPool = jedisPool;
+	}
 
 	// 注入服务层：goodsService
 	private GoodsService goodsService;
@@ -61,9 +70,36 @@ public class GoodsAction extends ActionSupport implements ModelDriven<Goods> {
 		return "freeGoodsList";
 	}
 
-	public String selectOne() throws Exception{
+	public String selectOne() throws Exception {
 		Goods goodsOne = goodsService.findGoodsByPrimaryKey(goods.getGoodsId());
 		ActionContext.getContext().put("goods", goodsOne);
 		return "goodsOne";
+	}
+
+	/**
+	 * 查询最新商品
+	 * 
+	 * @return
+	 * @throws Exception 
+	 */
+	public String selectNew() throws Exception {
+		//先到缓存数据库中查询goods,如果有直接使用，没有到数据库中查询存到缓存中
+		//创建jedisPool对象，获jedis
+		//Jedis jedis = jedisPool.getResource();
+		//String newGoods = jedis.get("newGoods");
+		List<Goods> newGoods = goodsService.findNewGoods();
+		ActionContext.getContext().put("newGoods", newGoods);
+		return "newGoodsList";
+	}
+	
+	/**
+	 * 查询销售排行商品
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectSalesRank() throws Exception{
+		List<Goods> SalesRankGoods =  goodsService.findSalesRankGoods();
+		ActionContext.getContext().put("SalesRankGoods", SalesRankGoods);
+		return "salesRankList";
 	}
 }

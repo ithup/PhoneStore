@@ -3,6 +3,7 @@ package cn.ithup.phone.dao.impl;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
@@ -53,6 +54,20 @@ public class GoodsDaoImpl extends HibernateDaoSupport implements GoodsDao {
 	 */
 	public Goods selectGoodsByPrimaryKey(Integer goodsId) {
 		return this.getHibernateTemplate().get(Goods.class, goodsId);
+	}
+
+	//查询最新商品
+	public List<Goods> selectNewGoods() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Goods.class);
+		criteria.addOrder(Order.desc("createTime"));
+		return (List<Goods>) this.getHibernateTemplate().findByCriteria(criteria,0,5);
+	}
+
+	//查询商品销售排行
+	public List<Goods> selectSalesRankGoods() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Goods.class);
+		criteria.addOrder(Order.desc("sellCount"));
+		return (List<Goods>) this.getHibernateTemplate().findByCriteria(criteria,0,5);
 	}
 
 }

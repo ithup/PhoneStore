@@ -48,6 +48,7 @@
 	<!-- 配置商品模块 -->
 	<bean id="goodsAction" class="cn.ithup.phone.web.action.GoodsAction" scope="prototype">
 		<property name="goodsService" ref="goodsService"/>
+		<property name="jedisPool" ref="jedisPool"/>
 	</bean>
 	<!-- 配置购物车模块 -->
 	<bean id="cartAction" class="cn.ithup.phone.web.action.CartAction" scope="prototype">

@@ -36,6 +36,9 @@ public class BigTypeServiceImpl implements BigTypeService {
 		return bigTypeDao.selectAlllBitType();
 	}
 
+	/**
+	 * 分页显示大类别
+	 */
 	public PageBean<BigType> showBigTypeByPage(int currPage, int pageSize) throws Exception {
 		// 查询当前页数据 (当前页-1)*每页显示条数,每页显示条数;
 		// 调用持久层分页长查询

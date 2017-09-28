@@ -54,32 +54,19 @@
         </tr>
         <tr>
         		<center>
-		<!-- 若是第一页 首页和上一页不展示 -->
-		<c:if test="${bt.currPage!=1 }">
-			<a href='${pageContext.request.contextPath}/bigType_showPage.action?currPage=1'>[首页]  </a>
-			<a href='${pageContext.request.contextPath}/bigType_showPage.action?currPage=${bt.currPage-1}'>[上一页]</a>
-		</c:if>
-		
-		<!-- 将所有的页码展示出来 -->
-		<%-- <c:forEach begin="1" end="${link.totalPage }" var="n">
-			<!-- 若是当前页 不可点 -->
-			<c:if test="${link.currPage == n }">
-				${n }
-			</c:if>
-			
-			<!-- 若不是当前页 可点 -->
-			<c:if test="${link.currPage != n }">
-				<a href="${pageContext.request.contextPath}/link_showPage.action?currPage=${n}">${n }</a>
-			</c:if>
-		</c:forEach> --%>
-		
-		<!-- 若是最后一页 尾页和下一页不展示 -->
-		<c:if test="${bt.currPage!=bt.totalPage }">
-			<a href='${pageContext.request.contextPath}/bigType_showPage.action?currPage=${bt.currPage+1}'>[下一页]</a>
-			<a href='${pageContext.request.contextPath}/bigType_showPage.action?currPage=${bt.totalPage}'>[尾页]  </a>
-		</c:if>
-		第${bt.currPage }页/共${bt.totalPage }页
-	</center>
+						<!-- 若是第一页 首页和上一页不展示 -->
+						<c:if test="${bt.currPage!=1 }">
+							<a href='${pageContext.request.contextPath}/bigType_showPage.action?currPage=1'>[首页]  </a>
+							<a href='${pageContext.request.contextPath}/bigType_showPage.action?currPage=${bt.currPage-1}'>[上一页]</a>
+						</c:if>
+						
+						<!-- 若是最后一页 尾页和下一页不展示 -->
+						<c:if test="${bt.currPage!=bt.totalPage }">
+							<a href='${pageContext.request.contextPath}/bigType_showPage.action?currPage=${bt.currPage+1}'>[下一页]</a>
+							<a href='${pageContext.request.contextPath}/bigType_showPage.action?currPage=${bt.totalPage}'>[尾页]  </a>
+						</c:if>
+						第${bt.currPage }页/共${bt.totalPage }页
+			  </center>
         </tr>
       </table>
 

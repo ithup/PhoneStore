@@ -26,8 +26,8 @@
 <table width="766" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF" bordercolorlight="#FFFFFF" bordercolordark="#819BBC" background="image/fg_top03.jpg">
       <tr align="center">
         <td width="117" height="31" onMouseOver="this.style.backgroundImage='url(image/fg_top04.jpg)'" onMouseOut="this.style.backgroundImage=''"><a href="index.jsp" class="a4">首页</a></td>
-        <td width="117" onMouseOver="this.style.backgroundImage='url(image/fg_top04.jpg)'" onMouseOut="this.style.backgroundImage=''"><a href="bg-resultTen.jsp" class="a4">销售排行</a></td>
-        <td width="117" onMouseOver="this.style.backgroundImage='url(image/fg_top04.jpg)'" onMouseOut="this.style.backgroundImage=''"><a href="fg-selectNewGoods.jsp" class="a4">新品上架</a></td>
+        <td width="117" onMouseOver="this.style.backgroundImage='url(image/fg_top04.jpg)'" onMouseOut="this.style.backgroundImage=''"><a href="${pageContext.request.contextPath}/goods_selectSalesRank.action" class="a4">销售排行</a></td>
+        <td width="117" onMouseOver="this.style.backgroundImage='url(image/fg_top04.jpg)'" onMouseOut="this.style.backgroundImage=''"><a href="${pageContext.request.contextPath}/goods_selectNew.action" class="a4">新品上架</a></td>
         <td width="117" onMouseOver="this.style.backgroundImage='url(image/fg_top04.jpg)'" onMouseOut="this.style.backgroundImage=''"><a href="${pageContext.request.contextPath}/goods_selectFreePage.action?currPage=1" class="a4">特价商品</a></td>
         <c:if test="${not empty member}">
 	        <td width="117" onMouseOver="this.style.backgroundImage='url(image/fg_top04.jpg)'" onMouseOut="this.style.backgroundImage=''"><a href="${pageContext.request.contextPath}/order_findAllByPage.action?currPage=1" class="a4">查看订单</a></td>

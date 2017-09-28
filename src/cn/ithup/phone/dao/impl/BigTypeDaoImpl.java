@@ -16,12 +16,18 @@ import cn.ithup.phone.pojo.Link;
  */
 public class BigTypeDaoImpl extends HibernateDaoSupport implements BigTypeDao {
 
+	/**
+	 * 持久层：分页查询数据
+	 */
 	public List<BigType> findBigTypePage(int currPage, int pageSize) throws Exception {
 		DetachedCriteria criteria = DetachedCriteria.forClass(BigType.class);
 		List<BigType> list = (List<BigType>) this.getHibernateTemplate().findByCriteria(criteria , currPage, pageSize);
 		return list;
 	}
 
+	/**
+	 * 持久层：查询总记录数
+	 */
 	public int getCount() throws Exception {
 		List<Number> list = (List<Number>) this.getHibernateTemplate().find("select count(b) from BigType b");
 		if(list!=null&&list.size()>0){

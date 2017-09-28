@@ -49,7 +49,12 @@
 		<!-- 商品模块 -->
 		<action name="goods_*" class="goodsAction" method="{1}">
 			<result name="freeGoodsList">/fg-selectFreeGoods.jsp</result>
+			<!-- 跳转到商品详细页面 -->
 			<result name="goodsOne">/fg-goodSelectOne.jsp</result>
+			<!-- 跳转到新商品列表 -->
+			<result name="newGoodsList">/fg-selectNewGoods.jsp</result>
+			<!-- 销售排行 -->
+			<result name="salesRankList">/fg-goodsSalesRank.jsp</result>
 		</action>
 		<!-- 购物车模块 -->
 		<action name="cart_*" class="cartAction" method="{1}">

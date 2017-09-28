@@ -19,4 +19,8 @@ public interface GoodsDao {
 	List<Goods> findFreeGoodsPage(int currPage, int pageSize);
 
 	Goods selectGoodsByPrimaryKey(Integer goodsId);
+
+	List<Goods> selectNewGoods();
+
+	List<Goods> selectSalesRankGoods();
 }
